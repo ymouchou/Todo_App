@@ -1,0 +1,55 @@
+
+@startuml
+left to right direction
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title TodoApp - Diagramme de cas d'utilisation
+
+actor "Utilisateur" as User
+actor "Administrateur" as Admin
+
+Admin --|> User
+
+rectangle "TodoApp" {
+
+  package "Fonctionnalités communes" {
+    usecase "Consulter l'accueil" as UC1
+    usecase "Consulter mes informations" as UC2
+    usecase "Consulter mes tâches" as UC3
+    usecase "Créer une tâche personnelle" as UC4
+    usecase "Modifier une tâche personnelle" as UC5
+    usecase "Supprimer une tâche personnelle" as UC6
+  }
+
+  package "Administration" {
+    usecase "Consulter les utilisateurs" as UC7
+    usecase "Créer un utilisateur" as UC8
+    usecase "Modifier un utilisateur" as UC9
+    usecase "Supprimer un utilisateur" as UC10
+
+    usecase "Consulter toutes les tâches" as UC11
+    usecase "Créer une tâche" as UC12
+    usecase "Modifier une tâche" as UC13
+    usecase "Supprimer une tâche" as UC14
+  }
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+
+@enduml

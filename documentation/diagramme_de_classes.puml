@@ -1,0 +1,50 @@
+
+@startuml
+title TodoApp - Diagramme de classes
+
+hide circle
+hide empty methods
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+
+class Utilisateur {
+    <b>idUtilisateur</b> : Long
+    <b>nom</b> : String
+    <b>prenom</b> : String
+    <b>email</b> : String
+}
+
+class Role {
+    <b>idRole</b> : Long
+    <b>nom</b> : String
+}
+
+class Tache {
+    <b>idTache</b> : Long
+    <b>titre</b> : String
+    <b>description</b> : String
+    <b>dateCreation</b> : LocalDateTime
+    <b>dateEcheance</b> : LocalDate
+    <b>terminee</b> : Boolean
+}
+
+Utilisateur "0..*" --> "1" Role : possede
+Tache "0..*" --> "1" Utilisateur : appartient a
+
+note right of Tache
+  <b>Types de dates (API java.time)</b>
+
+  <b>LocalDateTime</b> : date et heure
+  Exemple : 2026-11-02T14:30:00
+  Correspondance SQL : DATETIME
+
+  <b>LocalDate</b> : date uniquement
+  Exemple : 2026-11-06
+  Correspondance SQL : DATE
+
+  Ces types sont pris en charge
+  directement par JPA / Hibernate.
+end note
+
+@enduml

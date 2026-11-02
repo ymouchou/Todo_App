@@ -1,0 +1,60 @@
+
+@startuml
+title TodoApp - Diagramme Entite-Relation
+
+top to bottom direction
+hide circle
+
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+
+entity "tache" as tache {
+    🔑 <b>id_tache</b> : BIGINT <<PK, AI>>
+    --
+    <b>titre</b> : VARCHAR(255) NOT NULL
+    <b>description</b> : TEXT NULL
+    <b>date_creation</b> : DATETIME NOT NULL
+    <b>date_echeance</b> : DATE NULL
+    <b>terminee</b> : BOOLEAN NOT NULL DEFAULT FALSE
+    --
+    🔗 <b>fkid_utilisateur</b> : BIGINT <<FK>> NOT NULL
+}
+
+entity "utilisateur" as utilisateur {
+    🔑 <b>id_utilisateur</b> : BIGINT <<PK, AI>>
+    --
+    <b>nom</b> : VARCHAR(100) NOT NULL
+    <b>prenom</b> : VARCHAR(100) NOT NULL
+    <b>email</b> : VARCHAR(255) NOT NULL
+    --
+    🔗 <b>fkid_role</b> : BIGINT <<FK>> NOT NULL
+}
+
+entity "role" as role {
+    🔑 <b>id_role</b> : BIGINT <<PK, AI>>
+    --
+    <b>nom</b> : VARCHAR(50) NOT NULL UNIQUE
+}
+
+tache }o-down-|| utilisateur : appartient a
+utilisateur }o-down-|| role : possede
+
+note right of tache
+  <b>Correspondance Kotlin / MariaDB</b>
+
+  Long -> BIGINT
+  String -> VARCHAR / TEXT
+  LocalDateTime -> DATETIME
+  LocalDate -> DATE
+  Boolean -> BOOLEAN (TINYINT(1))
+
+  <b>Contraintes</b>
+  PK : cle primaire
+  FK : cle etrangere
+  AI : AUTO_INCREMENT
+  NULL : valeur facultative
+  NOT NULL : valeur obligatoire
+end note
+
+@enduml
