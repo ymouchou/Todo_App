@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: base(~{::content}, 'TodoApp - Mes infos', 'mes-infos')}">
+<div th:fragment="content" class="container py-4">
+    <!-- Titre de la page -->
+    <h1 class="mb-4">
+        <i class="bi bi-person-circle"></i>
+        Mes informations
+    </h1>
+
+    <!-- Message si aucun utilisateur n'est sélectionné -->
+    <div th:if="${utilisateurActif == null}" class="alert alert-warning" role="alert">
+        <i class="bi bi-exclamation-triangle"></i>
+        Aucun utilisateur sélectionné.
+        Veuillez choisir un utilisateur dans le menu supérieur.
+    </div>
+
+    <!-- Fiche de l'utilisateur actif -->
+    <div th:if="${utilisateurActif != null}" class="card shadow-sm">
+        <div class="card-header">
+            <h2 class="h5 mb-0">
+                <i class="bi bi-person-vcard"></i>
+                Fiche utilisateur
+            </h2>
+        </div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <!-- Identifiant -->
+                <dt class="col-sm-4">Identifiant</dt>
+                <dd class="col-sm-8" th:text="${utilisateurActif.idUtilisateur}"></dd>
+
+                <!-- Nom -->
+                <dt class="col-sm-4">Nom</dt>
+                <dd class="col-sm-8" th:text="${utilisateurActif.nom}"></dd>
+
+                <!-- Prénom -->
+                <dt class="col-sm-4">Prénom</dt>
+                <dd class="col-sm-8" th:text="${utilisateurActif.prenom}"></dd>
+
+                <!-- Adresse électronique -->
+                <dt class="col-sm-4">Adresse électronique</dt>
+                <dd class="col-sm-8" th:text="${utilisateurActif.email}"></dd>
+
+                <!-- Rôle -->
+                <dt class="col-sm-4">Rôle</dt>
+                <dd class="col-sm-8">
+                    <span class="badge" th:classappend="${utilisateurActif.role.nom == 'ROLE_ADMIN'} ? 'text-bg-danger' : 'text-bg-primary'"
+                          th:text="${utilisateurActif.role.nom}">
+                    </span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+</html>

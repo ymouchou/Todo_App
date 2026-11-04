@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: base(~{::content}, 'TodoApp - Utilisateurs', 'admin/utilisateurs')}">
+<div th:fragment="content" class="container py-4">
+    <h1 class="mb-4"><i class="bi bi-people"></i> Gestion des utilisateurs</h1>
+    <p class="text-muted">Liste de l'ensemble des utilisateurs enregistrés dans l'application TodoApp.</p>
+
+    <div th:if="${#lists.isEmpty(listeUtilisateurs)}" class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle"></i> Aucun utilisateur enregistré.
+    </div>
+
+    <div th:if="${not #lists.isEmpty(listeUtilisateurs)}" class="card shadow-sm">
+        <div class="card-header">
+            <h2 class="h5 mb-0">
+                <i class="bi bi-person-lines-fill"></i> Liste des utilisateurs
+                <span class="badge text-bg-secondary" th:text="${#lists.size(listeUtilisateurs)}"></span>
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Identifiant</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Adresse électronique</th>
+                        <th>Rôle</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="utilisateur : ${listeUtilisateurs}">
+                        <td th:text="${utilisateur.idUtilisateur}"></td>
+                        <td th:text="${utilisateur.nom}"></td>
+                        <td th:text="${utilisateur.prenom}"></td>
+                        <td th:text="${utilisateur.email}"></td>
+                        <td>
+                                <span class="badge"
+                                      th:classappend="${utilisateur.role.nom == 'ROLE_ADMIN'} ? 'text-bg-danger' : 'text-bg-primary'"
+                                      th:text="${utilisateur.role.nom}">
+                                </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

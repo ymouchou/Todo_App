@@ -1,0 +1,16 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <header th:fragment="header(activePage)"
+            class="bg-light border-bottom">
+        <div class="container d-flex align-items-center py-2">
+            <!-- Logo de l'application -->
+            <a th:href="@{/}" class="me-4">
+                <img th:src="@{/images/favicon.ico}"
+                     alt="TodoApp"
+                     width="40"
+                     height="40">
+            </a>
+            <!-- Barre de navigation -->
+            <div th:replace="~{fragments/navbar :: navbar(${activePage})}"></div>
+        </div>
+    </header>
+</div>
